@@ -11,11 +11,13 @@
   color: #ffffff;
   text-align: left;
 }
-.styled-table th,
 .styled-table td {
   padding: 12px 12px;
 }
+.styled-table th{
+  padding: 12px 22px;
 
+}
 .styled-table tbody tr{
     border-bottom: 2px solid #0e4366;
     background-color: #065d96;

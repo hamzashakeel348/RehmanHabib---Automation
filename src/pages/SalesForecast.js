@@ -34,43 +34,46 @@ const Forecast = () => {
   return (
     <div style={{ marginTop: "100px" }} className="Inner">
       <table className="styled-table">
-        <tr className="Heading">
-          <th style={{ textAlign: "center" }}>Sr. No.</th>
-          <th style={{ textAlign: "center" }}>Location</th>
-          <th style={{ textAlign: "center" }}>Project Type</th>
-          <th style={{ textAlign: "center" }}>Name</th>
-          <th style={{ textAlign: "center" }}>StrikeRate</th>
+        <tbody>
+          <tr className="Heading">
+            <th style={{ textAlign: "center" }}>Sr. No.</th>
+            <th style={{ textAlign: "center" }}>Location</th>
+            <th style={{ textAlign: "center" }}>Project Type</th>
+            <th style={{ textAlign: "center" }}>Name</th>
+            <th style={{ textAlign: "center" }}>StrikeRate</th>
 
-          <th style={{ textAlign: "center" }}>
-            <th>Jul-21 </th>
-            <th>Aug-21 </th>
-            <th>Sep-21 </th>
-            <th>Oct-21 </th>
-            <th>Nov-21 </th>
-            <th>Dec-21 </th>
-            <th>Jan-22 </th>
-            <th>Feb-22 </th>
-            <th>Mar-22 </th>
-            <th>Apr-22 </th>
-            <th>May-22 </th>
-            <th>Jun-22 </th>
-          </th>
+            <th style={{ textAlign: "center" }}>
+              <th>Jul-21 </th>
+              <th>Aug-21 </th>
+              <th>Sep-21 </th>
+              <th>Oct-21 </th>
+              <th>Nov-21 </th>
+              <th>Dec-21 </th>
+              <th>Jan-22 </th>
+              <th>Feb-22 </th>
+              <th>Mar-22 </th>
+              <th>Apr-22 </th>
+              <th>May-22 </th>
+              <th>Jun-22 </th>
+            </th>
 
-          <th style={{ textAlign: "center" }}>Total</th>
-          <th style={{ textAlign: "center" }}>ProjectCost</th>
-          <th style={{ textAlign: "center" }}>ConsultancyCost</th>
-          <th style={{ textAlign: "center" }}>Allocation</th>
-          <th style={{ textAlign: "center" }}>Remuneration</th>
-          <th style={{ textAlign: "center" }}>DirectCost</th>
-          <th style={{ textAlign: "center" }}>Actual%Share</th>
-          <th style={{ textAlign: "center" }}>EstimatedShare</th>
-          <th style={{ textAlign: "center" }}>Duration</th>
-          <th style={{ textAlign: "center" }}>LeadFirm</th>
-          <th style={{ textAlign: "center" }}>ExpectedRevenue</th>
-          <th style={{ textAlign: "center" }}>perMonthRevenue</th>
-          <th style={{ textAlign: "center" }}>startMonth</th>
-          <th style={{ textAlign: "center" }}>Action</th>
-        </tr>
+            <th style={{ textAlign: "center" }}>Total</th>
+            <th style={{ textAlign: "center" }}>ProjectCost</th>
+            <th style={{ textAlign: "center" }}>ConsultancyCost</th>
+            <th style={{ textAlign: "center" }}>Allocation</th>
+            <th style={{ textAlign: "center" }}>Remuneration</th>
+            <th style={{ textAlign: "center" }}>DirectCost</th>
+            <th style={{ textAlign: "center" }}>Actual%Share</th>
+            <th style={{ textAlign: "center" }}>EstimatedShare</th>
+            <th style={{ textAlign: "center" }}>Duration</th>
+            <th style={{ textAlign: "center" }}>LeadFirm</th>
+            <th style={{ textAlign: "center" }}>ExpectedRevenue</th>
+            <th style={{ textAlign: "center" }}>perMonthRevenue</th>
+            <th style={{ textAlign: "center" }}>startMonth</th>
+            <th style={{ textAlign: "center" }}>Action</th>
+          </tr>
+        </tbody>
+
         <tbody>
           {Object.keys(data).map((id, index) => {
             console.log("hamzazs");
@@ -82,14 +85,12 @@ const Forecast = () => {
                   <td>{data[id].Sector}</td>
                   <td>{data[id].Name}</td>
                   <td>{data[id].StrikeRate}%</td>
-                 
-                  <td style={{display:"flex", justifyContent:"space-around"}}>
+
+                  <td
+                    style={{ display: "flex", justifyContent: "space-around" }}
+                  >
                     {data[id].monthsrev.map((index) => {
-                      return (
-                        <p key={index}>
-                          {index}
-                        </p>
-                      );
+                      return <p>{index}</p>;
                     })}
                   </td>
                   <td>{data[id].total}</td>

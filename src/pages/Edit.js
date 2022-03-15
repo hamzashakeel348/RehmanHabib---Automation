@@ -45,8 +45,8 @@ const initialState = {
     "May-22",
     "Jun-22",
   ],
-  monthsrev: [0,0,0,0,0,0,0,0,0,0,0,0],
-  total:"-"
+  monthsrev: ["------", "------", "------","------", "------", "------", "------", "------", "------", "------", "------", "------"],
+  total: "-",
 };
 
 const Edit = () => {
@@ -79,7 +79,7 @@ const Edit = () => {
     startMonth,
     month,
     monthsrev,
-    total
+    total,
   } = state;
 
   const history = useHistory();
@@ -149,6 +149,9 @@ const Edit = () => {
         setState(initialState);
         setTimeout(() => history.push("/"), 500);
       } else {
+        state.Remuneration = state.ConsultingBudget * 0.65;
+        state.DirectCost = state.ConsultingBudget - state.Remuneration;
+
         if (state.LeadFirm === "RHC") {
           state.ExpectedRevenue =
             state.Remuneration * (state.EstimatedShare / 100) +
@@ -162,10 +165,11 @@ const Edit = () => {
           state.ExpectedRevenue !== "-" &&
           state.ExpectedRevenue > 0
         )
-        var y = state.ExpectedRevenue / state.Duration;
-          state.perMonthRevenue = y.toFixed(4)
+          var y = state.ExpectedRevenue / state.Duration;
+        state.perMonthRevenue = y.toFixed(2);
 
         if (state.startMonth !== "-") {
+          state.monthsrev = initialState.monthsrev;
           let startm = new Date(state.startMonth).toLocaleString("en-us", {
             month: "short",
             year: "2-digit",
@@ -178,11 +182,13 @@ const Edit = () => {
               break;
             }
           }
-          let multiplier = state.month.length-index;
-          state.total=state.perMonthRevenue*multiplier;
+          let multiplier = state.month.length - index;
+          let x = state.perMonthRevenue * multiplier;
+          state.total = x.toFixed(1);
           for (let i = index; i < state.month.length; i++) {
-            state.monthsrev[i]=state.perMonthRevenue
+            state.monthsrev[i] = state.perMonthRevenue;
           }
+
           console.log("JAkjakkalkal", state.monthsrev);
         }
         fireDb.child(`PipeLine/${id}`).set(state, (err) => {
