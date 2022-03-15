@@ -21,11 +21,10 @@ const initialState = {
   FundStatus: "Approved",
   ExpectedDate: "12March",
   status: "Approved",
-  Allocation: "-",
   Remuneration: "Hamza",
   DirectCost: "-",
-  share: "42",
-  EstimatedShare: "37",
+  share: "-",
+  EstimatedShare: "-",
   Duration: "-",
   LeadFirm: "-",
   ExpectedRevenue: "-",
@@ -45,8 +44,22 @@ const initialState = {
     "May-22",
     "Jun-22",
   ],
-  monthsrev: ["------", "------", "------","------", "------", "------", "------", "------", "------", "------", "------", "------"],
-  total: "-",
+  monthsrev: [
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+    "------",
+  ],
+  total: 0,
+  grandTotal:0
 };
 
 const Edit = () => {
@@ -67,7 +80,6 @@ const Edit = () => {
     FundStatus,
     ExpectedDate,
     status,
-    Allocation,
     Remuneration,
     DirectCost,
     share,
@@ -80,6 +92,7 @@ const Edit = () => {
     month,
     monthsrev,
     total,
+    grandTotal
   } = state;
 
   const history = useHistory();
@@ -153,31 +166,44 @@ const Edit = () => {
         state.DirectCost = state.ConsultingBudget - state.Remuneration;
 
         if (state.LeadFirm === "RHC") {
-          state.ExpectedRevenue =
-            state.Remuneration * (state.EstimatedShare / 100) +
-            state.DirectCost;
+          if (state.share !== "-") {
+            console.log(document.getElementById("EstimatedShare"));
+
+            state.ExpectedRevenue =
+              state.Remuneration * (state.share / 100) + state.DirectCost;
+            document.getElementById("EstimatedShare").disabled = true;
+          } else if (state.EstimatedShare !== "-") {
+            state.ExpectedRevenue =
+              state.Remuneration * (state.EstimatedShare / 100) +
+              state.DirectCost;
+          }
         } else if (state.LeadFirm !== "RHC" && state.LeadFirm !== "-") {
-          state.ExpectedRevenue = state.Remuneration * (state.share / 100);
+          if (state.share !== "-")
+            state.ExpectedRevenue = state.Remuneration * (state.share / 100);
+          else if (state.EstimatedShare !== "-") {
+            state.ExpectedRevenue =
+              state.Remuneration * (state.EstimatedShare / 100);
+          }
         }
         if (
           state.Duration > 0 &&
           state.Duration !== "-" &&
           state.ExpectedRevenue !== "-" &&
           state.ExpectedRevenue > 0
-        )
+        ) {
           var y = state.ExpectedRevenue / state.Duration;
-        state.perMonthRevenue = y.toFixed(2);
-
+          state.perMonthRevenue = y.toFixed(2);
+        }
         if (state.startMonth !== "-") {
           state.monthsrev = initialState.monthsrev;
-          let startm = new Date(state.startMonth).toLocaleString("en-us", {
-            month: "short",
-            year: "2-digit",
-          });
-          const result1 = startm.replaceAll(" ", "-");
+          // let startm = new Date(state.startMonth).toLocaleString("en-us", {
+          //   month: "short",
+          //   year: "2-digit",
+          // });
+          // const result1 = startm.replaceAll(" ", "-");
           let index = 0;
           for (let i = 0; i < state.month.length; i++) {
-            if (result1 === state.month[i]) {
+            if (state.startMonth === state.month[i]) {
               index = i;
               break;
             }
@@ -344,15 +370,6 @@ const Edit = () => {
               </div>
 
               <div>
-                <label htmlFor="Allocation">Allocation</label>
-                <input
-                  type="text"
-                  id="Allocation"
-                  name="Allocation"
-                  placeholder=" Allocation"
-                  value={Allocation || ""}
-                  onChange={handleInputChange}
-                />
                 <label htmlFor="Remuneration">Remuneration</label>
                 <input
                   type="text"

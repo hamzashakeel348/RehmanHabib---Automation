@@ -30,9 +30,9 @@ const Forecast = () => {
       });
     }
   };
-
+  let grandtotal = 0;
   return (
-    <div style={{ marginTop: "100px" }} className="Inner">
+    <div style={{ marginTop: "50px" }} className="Inner">
       <table className="styled-table">
         <tbody>
           <tr className="Heading">
@@ -60,7 +60,6 @@ const Forecast = () => {
             <th style={{ textAlign: "center" }}>Total</th>
             <th style={{ textAlign: "center" }}>ProjectCost</th>
             <th style={{ textAlign: "center" }}>ConsultancyCost</th>
-            <th style={{ textAlign: "center" }}>Allocation</th>
             <th style={{ textAlign: "center" }}>Remuneration</th>
             <th style={{ textAlign: "center" }}>DirectCost</th>
             <th style={{ textAlign: "center" }}>Actual%Share</th>
@@ -76,8 +75,8 @@ const Forecast = () => {
 
         <tbody>
           {Object.keys(data).map((id, index) => {
-            console.log("hamzazs");
-            if (data[id].StrikeRate > 50)
+            if (data[id].StrikeRate > 50) {
+              grandtotal = parseFloat(grandtotal) + parseFloat(data[id].total);
               return (
                 <tr key={id}>
                   <th scope="row">{index + 1}</th>
@@ -94,9 +93,9 @@ const Forecast = () => {
                     })}
                   </td>
                   <td>{data[id].total}</td>
+
                   <td>{data[id].Budget}</td>
                   <td>{data[id].ConsultingBudget}</td>
-                  <td>{data[id].Allocation}</td>
                   <td>{data[id].Remuneration}</td>
                   <td>{data[id].DirectCost}</td>
                   <td>{data[id].share}%</td>
@@ -120,9 +119,12 @@ const Forecast = () => {
                   </td>
                 </tr>
               );
+            }
           })}
         </tbody>
+        {/* {console.log("lklklk",grandtotal)} */}
       </table>
+      <h3 style={{marginLeft:"20px"}}>Total: {grandtotal}</h3>
       {/* <h2>Home</h2> */}
     </div>
   );

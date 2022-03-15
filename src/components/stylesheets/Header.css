@@ -30,6 +30,7 @@
 .header-right p {
   margin-left: 30px;
   font-size: 22px;
+  color: #ffffff;
 }
 .header-right p:hover {
   color: #0e4366;
