@@ -6,32 +6,32 @@ import arrow from"./Images/arrow_copy_copy.svg"
 const Main = () => {
   return (
     <div>
-      <div class="hero-wrapper">
-        <div class="wrapper">
-          <div class="hero-content">
+      <div className="hero-wrapper">
+        <div className="wrapper">
+          <div className="hero-content">
             <h1>We Constructed hundreds of projects</h1>
-            <p class="subtitle">Teaching UI / UX &amp; Frontend Development</p>
+            <p className="subtitle">Hydrology and Water Resources &amp; Architecture and Structural Engineering</p>
           </div>
         </div>
       </div>
-      <div class="light-purple-wrapper">
-        <div class="wrapper">
-          <ul class="stats">
+      <div className="light-purple-wrapper">
+        <div className="wrapper">
+          <ul className="stats">
             <li>
-              <strong>26.5M</strong>
-              <span>YouTube Views</span>
+              <strong>43</strong>
+              <span>Feasibility Studies</span>
             </li>
             <li>
-              <strong>535K</strong>
-              <span>YouTube Subs</span>
+              <strong>177 </strong>
+              <span>Construction Supervision</span>
             </li>
             <li>
-              <strong>86</strong>
-              <span>Courses</span>
+              <strong>89</strong>
+              <span>Digital Designs</span>
             </li>
             <li>
-              <strong>750</strong>
-              <span>Video Tutorials</span>
+              <strong>208</strong>
+              <span> Monitoring & Evaluation</span>
             </li>
             <li>
               <strong>58</strong>
@@ -39,15 +39,15 @@ const Main = () => {
             </li>
           </ul>
         </div>
-        <div class="extended-wrapper carousal-container">
+        <div className="extended-wrapper carousal-container">
           <img
             src={arrow}
             id="left-arrow"
-            class="arrows"
+            className="arrows"
             alt="Move testimonials to the left"
           />
 
-          <ul class="carousal">
+          <ul className="carousal">
             <li>
               <blockquote>
                 "Great skills, professional throughout, highly recommend!"
@@ -66,34 +66,34 @@ const Main = () => {
           <img
             src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2621168/arrow_copy_copy.svg"
             id="right-arrow"
-            class="arrows right"
+            className="arrows right"
             alt="Move testimonials to the right"
           />
         </div>
       </div>
-      <div class="wrapper move-up v-padding">
+      <div className="wrapper move-up v-padding">
         <h2>Companies We've worked with..</h2>
 
-        <ul class="companies">
+        <ul className="companies">
           <li>
             <img
               src={Image2}
               alt="skillshare"
-              class="skillshare"
+              className="skillshare"
             />
           </li>
           <li>
-            <img  src={Image} alt="Pluralsight" class="ps" />
+            <img src={Image} alt="Pluralsight" className="ps" />
           </li>
           <li>
             <img
               src={Image2}
               alt="skillshare"
-              class="skillshare"
+              className="skillshare"
             />
           </li>
           <li>
-            <img src={Image} alt="Pluralsight" class="ps" />
+            <img src={Image} alt="Pluralsight" className="ps" />
           </li>
         </ul>
       </div>

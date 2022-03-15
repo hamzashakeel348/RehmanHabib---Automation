@@ -1,42 +1,48 @@
-.Header{
-    overflow: hidden;
-    background-color: #f1f1f1;
+.Header {
+  overflow: hidden;
+  background-color: #f1f1f1;
 }
-.Header p{
-    float: left;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    text-decoration: none;
-    font-size: 18px;
-    line-height: 15px;
-    border-radius: 4px;
+.Header p {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 15px;
+  border-radius: 4px;
 }
- .logo{
-    font-size: 23px;
-    font-weight: bold;
+.logo {
+  font-size: 23px;
+  font-weight: bold;
 }
-.Header p:hover{
-    background-color: #ddd;
-    color: #5d6770;
+.Header p:hover {
+  background-color: #ddd;
+  color: #5d6770;
 }
-.Header p.active{
-    background-color: dodgerblue;
-    color: white;
+.Header p.active {
+  background-color: dodgerblue;
+  color: white;
 }
-.header-right{
-    display: flex;
+.header-right {
+  display: flex;
 }
-.header-right p{
-    margin-left: 30px;
+.header-right p {
+  margin-left: 30px;
+  font-size: 22px;
 }
-@media screen and (max-width:500px){
-    .header p{
-        float: none;
-        display: block;
-        text-align: left;
-    }
-    .header-right{
-        float: none;
-    }
+.header-right p:hover {
+  color: #0e4366;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+  .header p {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
 }

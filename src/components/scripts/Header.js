@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../stylesheets/Header.css";
-
+import logo from "../../pages/Images/logo.png"
 const Header = () => {
   const [activeTab, setActiveTab] = useState("Home");
 
@@ -24,11 +24,12 @@ const Header = () => {
     <div className="wrapper">
       
       <Link to="/" className="logo">
-          <p
+          <img
             className={`${activeTab === "Home" ? "active" : ""}`}
             onClick={() => setActiveTab("Home")}
-          >
-                   Rehman Habib Consultants Pvt Limited</p>
+
+            src={logo}
+          />
 
           </Link>
       <div className="header-right">

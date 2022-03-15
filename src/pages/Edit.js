@@ -21,16 +21,32 @@ const initialState = {
   FundStatus: "Approved",
   ExpectedDate: "12March",
   status: "Approved",
-  ProjectType: "-",
-  ProjectCost: "-",
-  ConsultancyCost: "-",
   Allocation: "-",
-  Remuneration: "-",
+  Remuneration: "Hamza",
   DirectCost: "-",
-  share: "-",
-  EstimatedShare: "-",
+  share: "42",
+  EstimatedShare: "37",
   Duration: "-",
   LeadFirm: "-",
+  ExpectedRevenue: "-",
+  perMonthRevenue: "-",
+  startMonth: "-",
+  month: [
+    "Jul-21",
+    "Aug-21",
+    "Sep-21",
+    "Oct-21",
+    "Nov-21",
+    "Dec-21",
+    "Jan-22",
+    "Feb-22",
+    "Mar-22",
+    "Apr-22",
+    "May-22",
+    "Jun-22",
+  ],
+  monthsrev: [0,0,0,0,0,0,0,0,0,0,0,0],
+  total:"-"
 };
 
 const Edit = () => {
@@ -51,9 +67,6 @@ const Edit = () => {
     FundStatus,
     ExpectedDate,
     status,
-    ProjectType,
-    ProjectCost,
-    ConsultancyCost,
     Allocation,
     Remuneration,
     DirectCost,
@@ -61,6 +74,12 @@ const Edit = () => {
     EstimatedShare,
     Duration,
     LeadFirm,
+    ExpectedRevenue,
+    perMonthRevenue,
+    startMonth,
+    month,
+    monthsrev,
+    total
   } = state;
 
   const history = useHistory();
@@ -117,6 +136,9 @@ const Edit = () => {
       toast.error("Please Fill the Form Completely");
     } else {
       if (!id) {
+        state.Remuneration = state.ConsultingBudget * 0.65;
+        state.DirectCost = state.ConsultingBudget - state.Remuneration;
+        console.log(state);
         fireDb.child("PipeLine").push(state, (err) => {
           if (err) {
             toast.err(err);
@@ -124,8 +146,45 @@ const Edit = () => {
             toast.success("contact added");
           }
         });
+        setState(initialState);
         setTimeout(() => history.push("/"), 500);
       } else {
+        if (state.LeadFirm === "RHC") {
+          state.ExpectedRevenue =
+            state.Remuneration * (state.EstimatedShare / 100) +
+            state.DirectCost;
+        } else if (state.LeadFirm !== "RHC" && state.LeadFirm !== "-") {
+          state.ExpectedRevenue = state.Remuneration * (state.share / 100);
+        }
+        if (
+          state.Duration > 0 &&
+          state.Duration !== "-" &&
+          state.ExpectedRevenue !== "-" &&
+          state.ExpectedRevenue > 0
+        )
+        var y = state.ExpectedRevenue / state.Duration;
+          state.perMonthRevenue = y.toFixed(4)
+
+        if (state.startMonth !== "-") {
+          let startm = new Date(state.startMonth).toLocaleString("en-us", {
+            month: "short",
+            year: "2-digit",
+          });
+          const result1 = startm.replaceAll(" ", "-");
+          let index = 0;
+          for (let i = 0; i < state.month.length; i++) {
+            if (result1 === state.month[i]) {
+              index = i;
+              break;
+            }
+          }
+          let multiplier = state.month.length-index;
+          state.total=state.perMonthRevenue*multiplier;
+          for (let i = index; i < state.month.length; i++) {
+            state.monthsrev[i]=state.perMonthRevenue
+          }
+          console.log("JAkjakkalkal", state.monthsrev);
+        }
         fireDb.child(`PipeLine/${id}`).set(state, (err) => {
           if (err) {
             toast.err(err);
@@ -153,8 +212,8 @@ const Edit = () => {
             }}
             onSubmit={handleSubmit}
           >
-            <div style={{display:"flex"}}>
-              <div style={{marginRight:"10px"}}>
+            <div style={{ display: "flex" }}>
+              <div style={{ marginRight: "10px" }}>
                 <label htmlFor="Location">Location</label>
                 <input
                   type="text"
@@ -220,10 +279,10 @@ const Edit = () => {
                 />
                 <label htmlFor="ConsultingBudget">ConsultingBudget</label>
                 <input
-                  type="number"
+                  type="text"
                   id="ConsultingBudget"
                   name="ConsultingBudget"
-                  placeholder=" ConsultingBudget"
+                  placeholder=" ConsultinghhBudget"
                   value={ConsultingBudget || ""}
                   onChange={handleInputChange}
                 />
@@ -256,7 +315,6 @@ const Edit = () => {
                 />
                 <br />
                 <br />
-
                 <label htmlFor="ExpectedDate">ExpectedDate</label>
                 <input
                   type="date"
@@ -280,33 +338,6 @@ const Edit = () => {
               </div>
 
               <div>
-                <label htmlFor="ProjectType">ProjectType</label>
-                <input
-                  type="text"
-                  id="ProjectType"
-                  name="ProjectType"
-                  placeholder=" ProjectType"
-                  value={ProjectType || ""}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="ProjectCost">ProjectCost</label>
-                <input
-                  type="text"
-                  id="ProjectCost"
-                  name="ProjectCost"
-                  placeholder=" ProjectCost"
-                  value={ProjectCost || ""}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="ConsultancyCost">ConsultancyCost</label>
-                <input
-                  type="text"
-                  id="ConsultancyCost"
-                  name="ConsultancyCost"
-                  placeholder=" ConsultancyCost"
-                  value={ConsultancyCost || ""}
-                  onChange={handleInputChange}
-                />
                 <label htmlFor="Allocation">Allocation</label>
                 <input
                   type="text"
@@ -368,6 +399,15 @@ const Edit = () => {
                   name="LeadFirm"
                   placeholder=" LeadFirm"
                   value={LeadFirm || ""}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="startMonth">startMonth</label>
+                <input
+                  type="text"
+                  id="startMonth"
+                  name="startMonth"
+                  placeholder=" startMonth"
+                  value={startMonth || ""}
                   onChange={handleInputChange}
                 />
               </div>
