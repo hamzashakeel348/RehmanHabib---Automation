@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import fireDb from "../firebase";
 import { useParams } from "react-router-dom";
 
 import "./stylesheets/Edit.css";
 
 const initialState = {
-  Location: "Lahore",
-  Sector: "Punjab",
-  Name: "Hamza",
-  Assignment: "ali",
-  Budget: "1000",
-  Client: "umer",
-  FocalPerson: "usman",
-  ConsultingBudget: "1092",
-  StrikeRate: "70",
-  JV: "aa",
-  FundStatus: "Approved",
-  ExpectedDate: "12March",
-  status: "Approved",
-  Remuneration: "Hamza",
+  Location: "Enter Location",
+  Sector: "Enter Sector",
+  Name: "Name of Project",
+  Assignment: "Assigness",
+  Budget: "Budget Amount",
+  Client: "Client Name",
+  FocalPerson: "Focal Person",
+  ConsultingBudget: "Consulting Budget",
+  StrikeRate: "Strike Rate",
+  FundStatus: "Fund Status",
+  ExpectedDate: "Expected Date",
+  status: "Status",
+  Remuneration: "Remunerarion",
   DirectCost: "-",
   share: "-",
   EstimatedShare: "-",
@@ -59,7 +57,11 @@ const initialState = {
     "------",
   ],
   total: 0,
-  grandTotal:0
+  grandTotal: 0,
+  JV1: "-",
+  JV2: "-",
+  JV3: "-",
+  ProjectResources: "-",
 };
 
 const Edit = () => {
@@ -76,7 +78,6 @@ const Edit = () => {
     FocalPerson,
     ConsultingBudget,
     StrikeRate,
-    JV,
     FundStatus,
     ExpectedDate,
     status,
@@ -92,7 +93,11 @@ const Edit = () => {
     month,
     monthsrev,
     total,
-    grandTotal
+    grandTotal,
+    JV1,
+    JV2,
+    JV3,
+    ProjectResources,
   } = state;
 
   const history = useHistory();
@@ -141,17 +146,19 @@ const Edit = () => {
       !FocalPerson ||
       !ConsultingBudget ||
       !StrikeRate ||
-      !JV ||
+      !JV1 ||
+      !JV2 ||
+      !JV3 ||
       !FundStatus ||
       !ExpectedDate ||
-      !status
+      !status ||
+      !ProjectResources 
     ) {
       toast.error("Please Fill the Form Completely");
     } else {
       if (!id) {
         state.Remuneration = state.ConsultingBudget * 0.65;
         state.DirectCost = state.ConsultingBudget - state.Remuneration;
-        console.log(state);
         fireDb.child("PipeLine").push(state, (err) => {
           if (err) {
             toast.err(err);
@@ -162,6 +169,20 @@ const Edit = () => {
         setState(initialState);
         setTimeout(() => history.push("/"), 500);
       } else {
+        state.monthsrev = [
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+          "------",
+        ];
         state.Remuneration = state.ConsultingBudget * 0.65;
         state.DirectCost = state.ConsultingBudget - state.Remuneration;
 
@@ -195,7 +216,6 @@ const Edit = () => {
           state.perMonthRevenue = y.toFixed(2);
         }
         if (state.startMonth !== "-") {
-          state.monthsrev = initialState.monthsrev;
           // let startm = new Date(state.startMonth).toLocaleString("en-us", {
           //   month: "short",
           //   year: "2-digit",
@@ -211,11 +231,15 @@ const Edit = () => {
           let multiplier = state.month.length - index;
           let x = state.perMonthRevenue * multiplier;
           state.total = x.toFixed(1);
-          for (let i = index; i < state.month.length; i++) {
-            state.monthsrev[i] = state.perMonthRevenue;
-          }
 
-          console.log("JAkjakkalkal", state.monthsrev);
+          if (parseInt(state.Duration) + index - 1 < state.month.length) {
+            for (let i = index; i < parseInt(state.Duration) + index; i++) {
+              state.monthsrev[i] = state.perMonthRevenue;
+            }
+          } else
+            for (let i = index; i < state.month.length; i++) {
+              state.monthsrev[i] = state.perMonthRevenue;
+            }
         }
         fireDb.child(`PipeLine/${id}`).set(state, (err) => {
           if (err) {
@@ -231,7 +255,7 @@ const Edit = () => {
 
   return (
     <div
-      style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}
+      style={{ marginTop: "100px", display: "flex", justifyContent: "center",background:'#0f3661' }}
     >
       {id ? (
         <div>
@@ -278,7 +302,7 @@ const Edit = () => {
                   type="text"
                   id="Assignment"
                   name="Assignment"
-                  placeholder=" Assignment"
+                  placeholder="Assignment"
                   value={Assignment || ""}
                   onChange={handleInputChange}
                 />
@@ -325,15 +349,6 @@ const Edit = () => {
                   name="StrikeRate"
                   placeholder=" StrikeRate"
                   value={StrikeRate || ""}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="JV">JV</label>
-                <input
-                  type="text"
-                  id="JV"
-                  name="JV"
-                  placeholder=" JV"
-                  value={JV || ""}
                   onChange={handleInputChange}
                 />
                 <label htmlFor="FundStatus">FundStatus</label>
@@ -431,6 +446,42 @@ const Edit = () => {
                   name="startMonth"
                   placeholder=" startMonth"
                   value={startMonth || ""}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="JV1">JV1</label>
+                <input
+                  type="text"
+                  id="JV1"
+                  name="JV1"
+                  placeholder=" JV1"
+                  value={JV1 || ""}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="JV2">JV2</label>
+                <input
+                  type="text"
+                  id="JV2"
+                  name="JV2"
+                  placeholder=" JV2"
+                  value={JV2 || ""}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="JV3">JV3</label>
+                <input
+                  type="text"
+                  id="JV3"
+                  name="JV3"
+                  placeholder=" JV3"
+                  value={JV3 || ""}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="ProjectResources">ProjectResources</label>
+                <input
+                  type="text"
+                  id="ProjectResources"
+                  name="ProjectResources"
+                  placeholder=" ProjectResources"
+                  value={ProjectResources || ""}
                   onChange={handleInputChange}
                 />
               </div>
@@ -531,15 +582,6 @@ const Edit = () => {
               value={StrikeRate || ""}
               onChange={handleInputChange}
             />
-            <label htmlFor="JV">JV</label>
-            <input
-              type="text"
-              id="JV"
-              name="JV"
-              placeholder=" JV"
-              value={JV || ""}
-              onChange={handleInputChange}
-            />
             <label htmlFor="FundStatus">FundStatus</label>
             <input
               type="text"
@@ -566,6 +608,42 @@ const Edit = () => {
               name="status"
               placeholder="status"
               value={status || ""}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="JV1">JV1</label>
+            <input
+              type="text"
+              id="JV1"
+              name="JV1"
+              placeholder=" JV1"
+              value={JV1 || ""}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="JV2">JV2</label>
+            <input
+              type="text"
+              id="JV2"
+              name="JV2"
+              placeholder=" JV2"
+              value={JV2 || ""}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="JV3">JV3</label>
+            <input
+              type="text"
+              id="JV3"
+              name="JV3"
+              placeholder=" JV3"
+              value={JV3 || ""}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="ProjectResources">ProjectResources</label>
+            <input
+              type="text"
+              id="ProjectResources"
+              name="ProjectResources"
+              placeholder=" ProjectResources"
+              value={ProjectResources || ""}
               onChange={handleInputChange}
             />
             <input type="submit" value={id ? "Update" : "Submit"} />

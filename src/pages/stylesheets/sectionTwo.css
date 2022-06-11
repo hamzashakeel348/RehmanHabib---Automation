@@ -1,0 +1,53 @@
+.SectionTwo {
+  color: black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Intro {
+  width: 70%;
+  text-align: center;
+}
+.Intro > h3 {
+  color: #0f3661;
+  position: relative;
+}
+.Intro > h3::before {
+  content: "";
+  position: absolute;
+  top: -0.3em;
+  height: 5px;
+  width: 80px;
+  background: #0e4366;
+}
+.Intro > p {
+  color: #0f3661;
+}
+
+.Values {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  box-shadow: 0px 16px 35px 0px rgb(0 0 0 / 20%);
+  margin: 1em 0em;
+}
+.Block {
+  text-align: center;
+  padding: 1em;
+  width: 100%;
+  -webkit-transition: background 1 s; /* For Safari 3.0 to 6.0 */
+  transition: background 1s;
+}
+.Block:hover {
+  background: #0f3661;
+}
+.Block:hover div > h3 {
+  color: white;
+}
+.Block > div > p {
+  font-size: 0.8em;
+  color: #646a7c;
+  font: 15px/24px "Work Sans", sans-serif;
+}

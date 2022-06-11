@@ -12,7 +12,9 @@ import Main from "./pages/Main";
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <div className="Header_Wrapper"> */}
+        <Header />
+      {/* </div> */}
       <ToastContainer position="top-center" />
       <Switch>
         <Route exact path="/" component={Main} />

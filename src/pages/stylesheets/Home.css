@@ -7,46 +7,88 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 .styled-table .Heading {
-  background-color: #0e4366;
+  background-color: #0f3661;
   color: #ffffff;
   text-align: left;
 }
 .styled-table td {
-  padding: 12px 12px;
+  padding: 12px 20px;
 }
-.styled-table th{
-  padding: 12px 22px;
-
+.styled-table th {
+  padding: 12px 30px;
 }
-.styled-table tbody tr{
-    border-bottom: 2px solid #0e4366;
-    background-color: #065d96;
-}
-
-
-.styled-table tbody tr:last-of-type{
-    border-bottom: 2px solid #0e4366;
-}
-.btn{
-    border: none;
-    color: white;
-    padding: 5px 8px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+.styled-table tbody tr {
+  border-bottom: 2px solid #0e4366;
+  background-color: #fff;
+  color: #0f3661;
 }
 
-.btn-edit{
-    background-color: #0e4366;
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #0e4366;
 }
-.btn-delete{
-    background-color: #0e4366;
+.btn {
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
-.btn-view{
-    background-color: #e7e7e7;
-    color: black;
+
+.btn-edit {
+  background-color: #0e4366;
+}
+.btn-delete {
+  background-color: #0e4366;
+}
+.btn-view {
+  background-color: #e7e7e7;
+  color: black;
+}
+#Filter {
+  background: transparent;
+  width: 12vw;
+  border-bottom: 1px solid #ffffff;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#Filter:focus-visible {
+  outline: none;
+}
+#Filter::placeholder {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#Filter_Sector {
+  background: transparent;
+  width: 12vw;
+  border-bottom: 1px solid #ffffff;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#Filter_Sector:focus-visible {
+  outline: none;
+}
+#Filter_Sector::placeholder {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
 }

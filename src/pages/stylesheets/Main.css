@@ -3,9 +3,10 @@
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
-  background-color: #0077c8;
+
   color: white;
   font-family: "Montserrat";
 }
@@ -24,17 +25,24 @@ ul {
 .hero-wrapper {
   background: url("../Images/bg-1.jpg");
   background-size: cover;
+  background-color: #0077c8;
 }
 
 .wrapper {
-  padding: 1.5em;
-  max-width: 1200px;
+  padding: 1em 3em;
   margin: 0 auto;
   justify-content: space-between;
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
 }
-
+.wrapper_Two {
+  background-color: #0f3661;
+  padding: 1em;
+}
 header {
   display: flex;
   justify-content: space-between;
@@ -56,19 +64,13 @@ header ul li a {
   margin-bottom: 0;
 }
 
-.light-purple-wrapper {
-  background: #065d96;
-}
-
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   justify-content: space-around;
   margin-top: 2em;
 }
-.stats li {
-  margin-bottom: 1.5em;
-}
+
 .stats strong {
   font-size: 1.4em;
 }
@@ -82,7 +84,7 @@ header ul li a {
 }
 
 .extended-wrapper {
-  padding: 0 1.5em 2em;
+  padding: 1em;
   max-width: 1230px;
   margin: 0 auto;
 }
@@ -91,7 +93,7 @@ ul.carousal {
   margin-bottom: 1em;
 }
 ul.carousal li {
-  background-color: #0e4366;
+  background-color: #0f3661;
   padding: 1em;
   margin-bottom: 1em;
 }
@@ -104,7 +106,7 @@ blockquote {
 }
 
 cite {
-  color: #065d96;
+  color: #fff;
   font-weight: bold;
   font-size: 0.8em;
   font-style: normal;
@@ -132,22 +134,36 @@ h2::before {
   position: absolute;
   top: -0.3em;
   height: 5px;
-  width: 30px;
+  width:100px;
   background: #0e4366;
 }
 
 .companies {
   text-align: center;
-  opacity: 0.4;
 }
-.companies li {
-  margin: 2em;
-}
+
 .companies .skillshare {
   width: 100px;
 }
 .companies .ps {
-  width: 200px;
+  width: 100px;
+}
+.stats li {
+  border-right: 3px solid #fff;
+  padding: 1% 4%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+.stats > li > span {
+  padding-left: 0.5em;
+}
+.stats > li > strong {
+  color: #f25454;
+  font-size: 1.5em;
+}
+.stats li:last-child {
+  border: 0;
 }
 
 @media (min-width: 500px) {
@@ -161,8 +177,8 @@ h2::before {
     font-size: 18px;
   }
 
-  .wrapper {
-    padding: 1.5em 4em;
+  .Wrapper {
+    padding: 0.5em 1em;
   }
 
   .carousal-container {
@@ -199,52 +215,52 @@ h2::before {
     justify-content: space-between;
   }
 }
-@media (min-width: 853px) {
-  body {
-    font-size: 20px;
-  }
 
-  .stats {
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-  }
-
-  .companies {
-    grid-template-columns: repeat(4, auto);
-  }
-
-  h1 {
-    font-size: 2.5em;
-  }
-
-  .subtitle {
-    font-size: 1.2em;
-  }
-
-  h2 {
-    text-align: left;
-    font-size: 2em;
-  }
-
-  .v-padding {
-    padding: 4em;
-  }
-
-  .light-purple-wrapper {
-    padding-bottom: 4em;
-  }
-
-  .move-up {
-    display: grid;
-  }
+body {
+  font-size: 20px;
 }
-@media (min-width: 1200px) {
-  .stats li {
-    border-right: 3px solid #0e4366;
-    padding: 0 4%;
-  }
-  .stats li:last-child {
-    border: 0;
-  }
-} /*# sourceMappingURL=styles.css.map */
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.companies {
+  grid-template-columns: repeat(4, auto);
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+.subtitle {
+  font-size: 1.2em;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.7em;
+}
+
+.v-padding {
+  padding: 4em;
+}
+
+.light-purple-wrapper {
+  padding-bottom: 4em;
+}
+
+.move-up {
+  display: grid;
+}
+
+.Section_Three {
+  color: #0f3661;
+  padding: 1em;
+}
+
+.item {
+  width: 100px;
+  margin: 0 auto
+}

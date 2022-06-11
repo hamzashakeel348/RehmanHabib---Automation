@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../stylesheets/Header.css";
-import logo from "../../pages/Images/logo.png"
+import logo from "../../pages/Images/header.png";
 const Header = () => {
   const [activeTab, setActiveTab] = useState("Home");
 
@@ -22,16 +22,15 @@ const Header = () => {
   });
   return (
     <div className="wrapper">
-      
       <Link to="/" className="logo">
-          <img
-            className={`${activeTab === "Home" ? "active" : ""}`}
-            onClick={() => setActiveTab("Home")}
-
-            src={logo}
-          />
-
-          </Link>
+        <img
+          className={`${activeTab === "Home" ? "active" : ""}`}
+          onClick={() => setActiveTab("Home")}
+          alt="error"
+          src={logo}
+          style={{height:'80px'}}
+        />
+      </Link>
       <div className="header-right">
         <Link to="/">
           <p
@@ -57,7 +56,7 @@ const Header = () => {
             PipeLine
           </p>
         </Link>
-        
+
         <Link to="/SalesForecast">
           <p
             className={`${activeTab === "SalesForecast" ? "active" : " "}`}
