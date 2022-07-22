@@ -5,7 +5,7 @@ import fireDb from "../firebase";
 
 import "./stylesheets/Home.css";
 
-const Forecast = () => {
+const ForecastThird = () => {
   var index = 0;
   function printData() {
     var divToPrint = document.getElementById("mytable");
@@ -80,18 +80,18 @@ const Forecast = () => {
           <th style={{ textAlign: "center" }}>StrikeRate</th>
 
           <th style={{ textAlign: "center" }}>
-            <th>Jul-21 </th>
-            <th>Aug-21 </th>
-            <th>Sep-21 </th>
-            <th>Oct-21 </th>
-            <th>Nov-21 </th>
-            <th>Dec-21 </th>
-            <th>Jan-22 </th>
-            <th>Feb-22 </th>
-            <th>Mar-22 </th>
-            <th>Apr-22 </th>
-            <th>May-22 </th>
-            <th>Jun-22 </th>
+            <th>Jul-23 </th>
+            <th>Aug-23 </th>
+            <th>Sep-23 </th>
+            <th>Oct-23 </th>
+            <th>Nov-23 </th>
+            <th>Dec-23 </th>
+            <th>Jan-24 </th>
+            <th>Feb-24 </th>
+            <th>Mar-24 </th>
+            <th>Apr-24 </th>
+            <th>May-24 </th>
+            <th>Jun-24 </th>
           </th>
 
           <th style={{ textAlign: "center" }}>Total</th>
@@ -118,7 +118,8 @@ const Forecast = () => {
           {Object.keys(data).map((id) => {
             if (data[id].StrikeRate > 50) {
               var x = data[id].startMonth.split("-")[1];
-              if (!data[id].salesFirst && !data[id].salesSecond) {
+              console.log(data[id].salesFirst == true,"JKA")
+              if (data[id].salesSecond == true) {
                 index++;
                 values.push(data[id]);
                 grandtotal =
@@ -182,15 +183,8 @@ const Forecast = () => {
       <h3 style={{ marginLeft: "20px", color: "black" }}>
         Total: {grandtotal}
       </h3>
-      {/* <button
-        onClick={() => {
-          printData();
-        }}
-      >
-        Print
-      </button> */}
     </div>
   );
 };
 
-export default Forecast;
+export default ForecastThird;

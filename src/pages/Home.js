@@ -32,45 +32,42 @@ const Home = () => {
       });
     }
   };
-  const SearchFunPro = () => {
-    let filter = document.getElementById("Filter").value.toUpperCase();
-    console.log(filter);
-    let mytable = document.getElementById("mytable");
-    let tr = mytable.getElementsByTagName("tr");
-    for (var i = 1; i < tr.length; i++) {
-      let td = tr[i].getElementsByTagName("td")[0];
+
+  function myFunction() {
+    console.log("called");
+    var input = document.getElementById("Filter");
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("mytable");
+    let filterTwo = document
+      .getElementById("Filter_Sector")
+      .value.toUpperCase();
+
+    var tr = table.getElementsByTagName("tr");
+    console.log(tr, "TWO");
+
+    for (let i = 0; i < tr.length; i++) {
+      var td = tr[i].getElementsByTagName("td")[1]; 
+      var td1 = tr[i].getElementsByTagName("td")[2]; 
+      console.log(td1, "TD");
       if (td) {
-        let textvalue = td.textContent || td.innerHTML;
-        if (textvalue.toUpperCase().indexOf(filter) > -1) {
+        if (
+          td1.innerHTML.toUpperCase().indexOf(filterTwo) > -1 &&
+          td.innerHTML.toUpperCase().indexOf(filter) > -1
+        ) {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
         }
       }
     }
-  };
-  const SearchFunSector = () => {
-    let filter = document.getElementById("Filter_Sector").value.toUpperCase();
-    console.log(filter);
-    let mytable = document.getElementById("mytable");
-    let tr = mytable.getElementsByTagName("tr");
-    for (var i = 1; i < tr.length; i++) {
-      let td = tr[i].getElementsByTagName("td")[1];
-      if (td) {
-        let textvalue = td.textContent || td.innerHTML;
-        if (textvalue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  };
+  }
+
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{}}>
       <table className="styled-table" id="mytable">
         <tr className="Heading">
           <th style={{ textAlign: "center" }}>Sr. No.</th>
+          <th style={{ textAlign: "center" }}>Federal / Provincial</th>
           {/* <th style={{ textAlign: "center" }}>Location</th> */}
           <th style={{ textAlign: "center" }}>
             <input
@@ -78,7 +75,7 @@ const Home = () => {
               name=""
               id="Filter"
               placeholder="Location"
-              onKeyUp={() => SearchFunPro()}
+              onKeyUp={() => myFunction()}
             />
           </th>
           <th style={{ textAlign: "center" }}>
@@ -87,7 +84,7 @@ const Home = () => {
               name=""
               id="Filter_Sector"
               placeholder="Sector"
-              onKeyUp={() => SearchFunSector()}
+              onKeyUp={() => myFunction()}
             />
           </th>
           <th style={{ textAlign: "center" }}>Name of Project</th>
@@ -104,13 +101,14 @@ const Home = () => {
           <th style={{ textAlign: "center" }}>Funded/Non-Funded</th>
           <th style={{ textAlign: "center" }}>Expected Date</th>
           <th style={{ textAlign: "center" }}>Status</th>
-          <th style={{ textAlign: "center" }}>Action</th>
+          <th style={{ textAlign: "center"}}>Action</th>
         </tr>
         <tbody>
           {Object.keys(data).map((id, index) => {
             return (
               <tr key={id}>
                 <th scope="row">{index + 1}</th>
+                <td>{data[id].FOP}</td>
                 <td>{data[id].Location}</td>
                 <td>{data[id].Sector}</td>
                 <td>{data[id].Name}</td>
@@ -128,7 +126,7 @@ const Home = () => {
                 <td>{data[id].FundStatus}</td>
                 <td>{data[id].ExpectedDate}</td>
                 <td>{data[id].status}</td>
-                <td>
+                <td style={{ textAlign: "end" }}>
                   <Link to={`/update/${id}`}>
                     <button className="btn btn-edit">Edit</button>
                   </Link>

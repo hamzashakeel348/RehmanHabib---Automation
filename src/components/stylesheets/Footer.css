@@ -1,0 +1,31 @@
+.Footer {
+  background-color: #0d2034;
+  display: flex;
+  justify-content: space-between;
+  padding: 2em;
+}
+
+.columnOne > h1 {
+  font-size: 18px;
+}
+.columnOne > h2 {
+  font-size: 38px;
+}
+.columnOne > h2::before {
+  content: "";
+  position: absolute;
+  bottom: -0.3em;
+  height: 5px;
+  width: 170px;
+  background: #fff;
+}
+.list {
+  align-items: center;
+  display: flex;
+  color: #b5b7d2;
+  font-size: 15px;
+  padding: 0.5em 0em;
+}
+.list:hover{
+    cursor: pointer;
+}

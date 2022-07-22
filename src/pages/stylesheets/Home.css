@@ -7,20 +7,22 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 .styled-table .Heading {
-  background-color: #0f3661;
+  background-color: #0d2034;
   color: #ffffff;
   text-align: left;
 }
 .styled-table td {
-  padding: 12px 20px;
+  padding: 10px;
 }
 .styled-table th {
-  padding: 12px 30px;
+  padding: 10px;
 }
 .styled-table tbody tr {
   border-bottom: 2px solid #0e4366;
   background-color: #fff;
   color: #0f3661;
+  font-size: 15px;
+  text-align: center;
 }
 
 .styled-table tbody tr:last-of-type {

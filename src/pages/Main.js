@@ -134,7 +134,7 @@ const Main = () => {
             </div>
           </OwlCarousel>
         </Flip>
-        ;
+        
       </div>
     </div>
   );

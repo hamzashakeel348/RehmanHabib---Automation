@@ -19,6 +19,9 @@ const Header = () => {
     if (location.pathname === "/SalesForecast") {
       setActiveTab("SalesForecast");
     }
+    if (location.pathname === "/SalesForecastSecond") {
+      setActiveTab("SalesForecastSecond");
+    }
   });
   return (
     <div className="wrapper">
@@ -28,18 +31,10 @@ const Header = () => {
           onClick={() => setActiveTab("Home")}
           alt="error"
           src={logo}
-          style={{height:'80px'}}
+          style={{ height: "80px" }}
         />
       </Link>
       <div className="header-right">
-        <Link to="/">
-          <p
-            className={`${activeTab === "Home" ? "active" : " "}`}
-            onClick={() => setActiveTab("Home")}
-          >
-            Home
-          </p>
-        </Link>
         <Link to="/add">
           <p
             className={`${activeTab === "AddContact" ? "active" : " "}`}
@@ -62,7 +57,25 @@ const Header = () => {
             className={`${activeTab === "SalesForecast" ? "active" : " "}`}
             onClick={() => setActiveTab("SalesForecast")}
           >
-            SalesForecast
+            SalesForecast  2021 - 22 
+          </p>
+        </Link>
+        <Link to="/SalesForecastSecond">
+          <p
+            className={`${
+              activeTab === "SalesForecastSecond" ? "active" : " "
+            }`}
+            onClick={() => setActiveTab("SalesForecastSecond")}
+          >
+            SalesForecast  2022 - 23 
+          </p>
+        </Link>
+        <Link to="/SalesForecastThird">
+          <p
+            className={`${activeTab === "SalesForecastThird" ? "active" : " "}`}
+            onClick={() => setActiveTab("SalesForecastThird")}
+          >
+            SalesForecast  2023 - 24 
           </p>
         </Link>
       </div>

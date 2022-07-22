@@ -7,19 +7,19 @@ import { useParams } from "react-router-dom";
 import "./stylesheets/Edit.css";
 
 const initialState = {
-  Location: "Enter Location",
-  Sector: "Enter Sector",
-  Name: "Name of Project",
-  Assignment: "Assigness",
-  Budget: "Budget Amount",
-  Client: "Client Name",
-  FocalPerson: "Focal Person",
-  ConsultingBudget: "Consulting Budget",
-  StrikeRate: "Strike Rate",
-  FundStatus: "Fund Status",
-  ExpectedDate: "Expected Date",
-  status: "Status",
-  Remuneration: "Remunerarion",
+  Location: "",
+  Sector: "",
+  Name: "",
+  Assignment: "",
+  Budget: "",
+  Client: "",
+  FocalPerson: "",
+  ConsultingBudget: "",
+  StrikeRate: "",
+  FundStatus: "",
+  ExpectedDate: "",
+  status: "",
+  Remuneration: "",
   DirectCost: "-",
   share: "-",
   EstimatedShare: "-",
@@ -42,6 +42,34 @@ const initialState = {
     "May-22",
     "Jun-22",
   ],
+  Futmonth: [
+    "Jul-22",
+    "Aug-22",
+    "Sep-22",
+    "Oct-22",
+    "Nov-22",
+    "Dec-22",
+    "Jan-23",
+    "Feb-23",
+    "Mar-23",
+    "Apr-23",
+    "May-23",
+    "Jun-23",
+  ],
+  SecFutmonth: [
+    "Jul-23",
+    "Aug-23",
+    "Sep-23",
+    "Oct-23",
+    "Nov-23",
+    "Dec-23",
+    "Jan-24",
+    "Feb-24",
+    "Mar-24",
+    "Apr-24",
+    "May-24",
+    "Jun-24",
+  ],
   monthsrev: [
     "------",
     "------",
@@ -62,12 +90,19 @@ const initialState = {
   JV2: "-",
   JV3: "-",
   ProjectResources: "-",
+  FOP: "-",
+  salesFirst: false,
+  salesSecond: false,
 };
 
 const Edit = () => {
+  const [salesForecastFirst, setSalesForecastFirst] = useState(false);
+  const [salesForecastSecond, setSalesForecastSecond] = useState(false);
   const [state, setState] = useState(initialState);
   const [data, setData] = useState({});
-
+  const first = document.getElementById("secondSheet");
+  const second = document.getElementById("firstSheet");
+  
   const {
     Location,
     Sector,
@@ -91,6 +126,7 @@ const Edit = () => {
     perMonthRevenue,
     startMonth,
     month,
+    Futmonth,
     monthsrev,
     total,
     grandTotal,
@@ -98,6 +134,9 @@ const Edit = () => {
     JV2,
     JV3,
     ProjectResources,
+    FOP,
+    salesFirst,
+    salesSecond,
   } = state;
 
   const history = useHistory();
@@ -152,7 +191,7 @@ const Edit = () => {
       !FundStatus ||
       !ExpectedDate ||
       !status ||
-      !ProjectResources 
+      !ProjectResources
     ) {
       toast.error("Please Fill the Form Completely");
     } else {
@@ -188,7 +227,6 @@ const Edit = () => {
 
         if (state.LeadFirm === "RHC") {
           if (state.share !== "-") {
-            console.log(document.getElementById("EstimatedShare"));
 
             state.ExpectedRevenue =
               state.Remuneration * (state.share / 100) + state.DirectCost;
@@ -216,31 +254,72 @@ const Edit = () => {
           state.perMonthRevenue = y.toFixed(2);
         }
         if (state.startMonth !== "-") {
-          // let startm = new Date(state.startMonth).toLocaleString("en-us", {
-          //   month: "short",
-          //   year: "2-digit",
-          // });
-          // const result1 = startm.replaceAll(" ", "-");
+          state.total = 0;
           let index = 0;
-          for (let i = 0; i < state.month.length; i++) {
-            if (state.startMonth === state.month[i]) {
-              index = i;
-              break;
+          if (!salesForecastFirst && !salesForecastSecond) {
+            for (let i = 0; i < state.month.length; i++) {
+              if (state.startMonth === state.month[i]) {
+                index = i;
+                break;
+              }
             }
-          }
-          let multiplier = state.month.length - index;
-          let x = state.perMonthRevenue * multiplier;
-          state.total = x.toFixed(1);
+            let x = state.perMonthRevenue * parseInt(state.Duration);
+            state.total = x.toFixed(1);
 
-          if (parseInt(state.Duration) + index - 1 < state.month.length) {
-            for (let i = index; i < parseInt(state.Duration) + index; i++) {
-              state.monthsrev[i] = state.perMonthRevenue;
+            if (parseInt(state.Duration) + index - 1 < state.month.length) {
+              for (let i = index; i < parseInt(state.Duration) + index; i++) {
+                state.monthsrev[i] = state.perMonthRevenue;
+              }
+            } else
+              for (let i = index; i < state.month.length; i++) {
+                state.monthsrev[i] = state.perMonthRevenue;
+              }
+          } else if (salesForecastFirst) {
+            state.salesFirst = true;
+            for (let i = 0; i < state.Futmonth.length; i++) {
+              if (state.startMonth === state.Futmonth[i]) {
+                index = i;
+                break;
+              }
             }
-          } else
-            for (let i = index; i < state.month.length; i++) {
-              state.monthsrev[i] = state.perMonthRevenue;
+
+            let x = state.perMonthRevenue * parseInt(state.Duration);
+            state.total = x.toFixed(1);
+
+            if (parseInt(state.Duration) + index - 1 < state.Futmonth.length) {
+              for (let i = index; i < parseInt(state.Duration) + index; i++) {
+                state.monthsrev[i] = state.perMonthRevenue;
+              }
+            } else
+              for (let i = index; i < state.month.length; i++) {
+                state.monthsrev[i] = state.perMonthRevenue;
+              }
+          } else if (salesForecastSecond) {
+            state.salesSecond = true;
+            for (let i = 0; i < state.SecFutmonth.length; i++) {
+              if (state.startMonth === state.SecFutmonth[i]) {
+                index = i;
+                break;
+              }
             }
+
+            let x = state.perMonthRevenue * parseInt(state.Duration);
+            state.total = x.toFixed(1);
+
+            if (
+              parseInt(state.Duration) + index - 1 <
+              state.SecFutmonth.length
+            ) {
+              for (let i = index; i < parseInt(state.Duration) + index; i++) {
+                state.monthsrev[i] = state.perMonthRevenue;
+              }
+            } else
+              for (let i = index; i < state.month.length; i++) {
+                state.monthsrev[i] = state.perMonthRevenue;
+              }
+          }
         }
+
         fireDb.child(`PipeLine/${id}`).set(state, (err) => {
           if (err) {
             toast.err(err);
@@ -255,7 +334,11 @@ const Edit = () => {
 
   return (
     <div
-      style={{ marginTop: "100px", display: "flex", justifyContent: "center",background:'#0f3661' }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        background: "#0f3661",
+      }}
     >
       {id ? (
         <div>
@@ -277,6 +360,15 @@ const Edit = () => {
                   name="Location"
                   placeholder="Your Location"
                   value={Location || ""}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="FOP">Federal / Provincial</label>
+                <input
+                  type="text"
+                  id="FOP"
+                  name="FOP"
+                  placeholder=" FOP"
+                  value={FOP || ""}
                   onChange={handleInputChange}
                 />
                 <label htmlFor="Sector">Sector</label>
@@ -411,6 +503,7 @@ const Edit = () => {
                   placeholder=" share"
                   value={share || ""}
                   onChange={handleInputChange}
+                  required
                 />
                 <label htmlFor="EstimatedShare">EstimatedShare</label>
                 <input
@@ -429,6 +522,7 @@ const Edit = () => {
                   placeholder=" Duration"
                   value={Duration || ""}
                   onChange={handleInputChange}
+                  required
                 />
                 <label htmlFor="LeadFirm">LeadFirm</label>
                 <input
@@ -438,6 +532,7 @@ const Edit = () => {
                   placeholder=" LeadFirm"
                   value={LeadFirm || ""}
                   onChange={handleInputChange}
+                  required
                 />
                 <label htmlFor="startMonth">startMonth</label>
                 <input
@@ -447,6 +542,7 @@ const Edit = () => {
                   placeholder=" startMonth"
                   value={startMonth || ""}
                   onChange={handleInputChange}
+                  required
                 />
                 <label htmlFor="JV1">JV1</label>
                 <input
@@ -484,6 +580,66 @@ const Edit = () => {
                   value={ProjectResources || ""}
                   onChange={handleInputChange}
                 />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="firstSheet"
+                      checked={
+                        state.salesFirst
+                          ? true
+                          : false || salesForecastFirst
+                          ? true
+                          : false
+                      }
+                      disabled={
+                        state.salesSecond
+                          ? true
+                          : false || salesForecastSecond
+                          ? true
+                          : false
+                      }
+                      onChange={() =>
+                        setSalesForecastFirst(!salesForecastFirst)
+                      }
+                    />
+                    <label htmlFor="checbox" style={{ fontSize: "15px" }}>
+                      2022 - 2023
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="secondSheet"
+                      checked={
+                        state.salesSecond
+                          ? true
+                          : false || salesForecastSecond
+                          ? true
+                          : false
+                      }
+                      disabled={
+                        state.salesFirst
+                          ? true
+                          : false || salesForecastFirst
+                          ? true
+                          : false
+                      }
+                      onChange={() =>
+                        setSalesForecastSecond(!salesForecastSecond)
+                      }
+                    />
+                    <label htmlFor="checbox" style={{ fontSize: "15px" }}>
+                      2023 - 2024
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -501,6 +657,15 @@ const Edit = () => {
             }}
             onSubmit={handleSubmit}
           >
+            <label htmlFor="FOP">Federal / Provincial</label>
+            <input
+              type="text"
+              id="FOP"
+              name="FOP"
+              placeholder=" FOP"
+              value={FOP || ""}
+              onChange={handleInputChange}
+            />
             <label htmlFor="Location">Location</label>
             <input
               type="text"
