@@ -155,7 +155,7 @@ const ForecastSecond = () => {
                     <td>{data[id].Remuneration}</td>
                     <td>{data[id].DirectCost}</td>
                     <td>{data[id].share}%</td>
-                    <td>{data[id].EstimatedShare}</td>
+                    <td>{data[id].EstimatedShare}%</td>
                     <td>{data[id].Duration}</td>
                     <td>{data[id].LeadFirm}</td>
                     <td>{data[id].ExpectedRevenue}</td>
